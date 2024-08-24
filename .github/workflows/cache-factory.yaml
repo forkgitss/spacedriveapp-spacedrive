@@ -36,6 +36,8 @@ jobs:
             target: x86_64-apple-darwin
           - host: macos-14
             target: aarch64-apple-darwin
+          - host: macos-14
+            target: universal-apple-darwin
           - host: windows-latest
             target: x86_64-pc-windows-msvc
           # - host: windows-latest

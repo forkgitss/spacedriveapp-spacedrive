@@ -28,7 +28,7 @@ const OS_TYPE = {
 	linux: 'Linux',
 }
 
-/** @returns {['Darwin' | 'Windows_NT', 'x86_64' | 'aarch64'] | ['Linux', 'x86_64' | 'aarch64', 'musl' | 'glibc']} */
+/** @returns {['Darwin', 'x86_64' | 'aarch64' | 'universal'] | ['Windows_NT', 'x86_64' | 'aarch64'] | ['Linux', 'x86_64' | 'aarch64', 'musl' | 'glibc']} */
 export function getMachineId() {
 	let _os, _arch
 	let _libc = libc
@@ -37,6 +37,7 @@ export function getMachineId() {
 	 * Supported TARGET_TRIPLE:
 	 * x86_64-apple-darwin
 	 * aarch64-apple-darwin
+	 * universal-apple-darwin
 	 * x86_64-pc-windows-msvc
 	 * aarch64-pc-windows-msvc
 	 * x86_64-unknown-linux-gnu
@@ -56,13 +57,18 @@ export function getMachineId() {
 		if (_arch === 'arm64') _arch = 'aarch64'
 	}
 
-	if (_arch !== 'x86_64' && _arch !== 'aarch64') throw new Error(`Unsuported architecture`)
+	if (_arch !== 'x86_64' && _arch !== 'aarch64' && !(_arch === 'universal' && _os === 'Darwin'))
+		throw new Error(`Unsuported architecture`)
 
 	if (_os === 'Linux') {
+		// @ts-expect-error _arch type is incorrect from supporting Darwin universal
+		// and I don't care to fix it in a .mjs file
 		return [_os, _arch, _libc]
 	} else if (_os !== 'Darwin' && _os !== 'Windows_NT') {
 		throw new Error(`Unsuported OS`)
 	}
-
+	
+	// @ts-expect-error _arch type is incorrect from supporting Darwin universal
+	// and I don't care to fix it in a .mjs file
 	return [_os, _arch]
 }

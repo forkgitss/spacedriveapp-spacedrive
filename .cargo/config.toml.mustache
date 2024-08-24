@@ -24,6 +24,13 @@ rustflags = ["-L", "{{{nativeDeps}}}/lib", "-Csplit-debuginfo=unpacked"]
 [target.aarch64-apple-darwin.heif]
 rustc-link-search = ["{{{nativeDeps}}}/lib"]
 rustc-link-lib = ["heif"]
+
+[target.universal-apple-darwin]
+rustflags = ["-L", "{{{nativeDeps}}}/lib", "-Csplit-debuginfo=unpacked"]
+
+[target.universal-apple-darwin.heif]
+rustc-link-search = ["{{{nativeDeps}}}/lib"]
+rustc-link-lib = ["heif"]
 {{/isMacOS}}
 
 {{#isWin}}

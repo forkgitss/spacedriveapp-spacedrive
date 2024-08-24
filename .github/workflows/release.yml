@@ -28,6 +28,11 @@ jobs:
             bundles: dmg,app
             os: darwin
             arch: aarch64
+          - host: macos-14
+            target: universal-apple-darwin
+            bundles: dmg,app
+            os: darwin
+            arch: universal
           - host: windows-latest
             target: x86_64-pc-windows-msvc
             bundles: msi
